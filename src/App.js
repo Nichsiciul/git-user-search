@@ -1,35 +1,65 @@
 import React, { Component } from 'react';
 import SearchBar from "./SearchBar/SearchBar.js";
-import logo from './logo.svg';
+import Header from "./Header/Header.js";
+import { Alert } from "react-bootstrap";
+
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data : ""
+      data : "",
+      userName: ""
     };
   }
   render() {
     return (
       <div>
-        <div className="container-fluid" id="header">
-          <h1 className="App-intro"> Git User Search using <img className="App-logo" src={logo} alt="logo"/></h1>
-        </div>
+        <Header></Header>
         <div className="container" id="content">
           <SearchBar addData={this.addDataToApp}></SearchBar>
-          <p>
-            {this.state.data}
-          </p>
+          <div className={this.state.data === "" ? "hidden" : ""}>
+            {
+              //TODO: maybe refactor with component ?
+            }
+            {this.state.data.error === true ?
+            (
+              <Alert bsStyle="danger">Error, user {this.state.userName} not found</Alert>
+            ) :
+            (
+              <div>
+                <div className="block"></div>
+                <h2>Repositories</h2>
+                <hr/>
+                <div className="blocks"></div>
+                <div className="blocks"></div>
+                <div className="blocks"></div>
+                <h2>Subscribed</h2>
+                <hr/>
+                <div className="blocks"></div>
+                <div className="blocks"></div>
+                <div className="blocks"></div>
+                <h2>Followers</h2>
+                <hr/>
+                <div className="block"></div>
+                <div className="block spacing"></div>
+                <div className="block spacing "></div>
+                <div className="block spacing"></div>
+              </div>
+            )}
+
+          </div>
         </div>
       </div>
     );
   }
 
-  addDataToApp = (data) =>{
-    console.log(data);
-    this.setState({data : data})
-    console.log(this)
+  addDataToApp = (data, userName) =>{
+    console.log(data, userName);
+    this.setState({data : data});
+    this.setState({userName: userName});
+
   }
 
 }
