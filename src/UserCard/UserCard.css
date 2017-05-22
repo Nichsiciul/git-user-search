@@ -1,0 +1,12 @@
+.custom-label, .value{
+  font-size:20px;
+}
+
+.value{
+  font-weight: bold;
+}
+
+#userInfoData .row{
+  margin-bottom:10px;
+  margin-top:15px;
+}

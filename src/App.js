@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import SearchBar from "./SearchBar/SearchBar.js";
-import Header from "./Header/Header.js";
 import { Alert } from "react-bootstrap";
+
+import Header from "./Header/Header.js";
+import SearchBar from "./SearchBar/SearchBar.js";
+import UserCard from "./UserCard/UserCard.js";
 
 import './App.css';
 
@@ -9,8 +11,9 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data : "",
-      userName: ""
+      userInfo: {},
+      userName: "",
+      error: false
     };
   }
   render() {
@@ -18,18 +21,22 @@ class App extends Component {
       <div>
         <Header></Header>
         <div className="container" id="content">
-          <SearchBar addData={this.addDataToApp}></SearchBar>
-          <div className={this.state.data === "" ? "hidden" : ""}>
+          <SearchBar
+            addData={this.addUserData}
+            addError={this.addError}
+            >
+            </SearchBar>
+          <div className={this.state.userName === "" ? "hidden" : ""}>
             {
               //TODO: maybe refactor with component ?
             }
-            {this.state.data.error === true ?
+            {this.state.error === true ?
             (
               <Alert bsStyle="danger">Error, user {this.state.userName} not found</Alert>
             ) :
             (
               <div>
-                <div className="block"></div>
+                <UserCard data={this.state.UserInfo}></UserCard>
                 <h2>Repositories</h2>
                 <hr/>
                 <div className="blocks"></div>
@@ -55,11 +62,17 @@ class App extends Component {
     );
   }
 
-  addDataToApp = (data, userName) =>{
+  addUserData = (data, userName) =>{
     console.log(data, userName);
-    this.setState({data : data});
+    this.setState({UserInfo : data});
     this.setState({userName: userName});
+    this.setState({error : false});
+  }
 
+  addError = (error, userName) =>{
+    console.log(error, userName);
+    this.setState({error : error});
+    this.setState({userName: userName});
   }
 
 }

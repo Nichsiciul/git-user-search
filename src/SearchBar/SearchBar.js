@@ -53,11 +53,13 @@ class SearchBar extends Component {
             type: bestFit.type,
             url: bestFit.html_url,
             score: bestFit.score,
-            site_admin: bestFit.site_admin
+            site_admin: bestFit.site_admin,
+            img: bestFit.avatar_url,
+            id: bestFit.id
           });
         }
         else{
-          this.props.addData({error: true}, this.state.value);
+          this.props.addError(true, this.state.value);
         }
 
       })
